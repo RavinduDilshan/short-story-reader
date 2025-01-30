@@ -28,7 +28,7 @@ class FavoriteScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("res/0.png"), fit: BoxFit.cover)),
+                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: FutureBuilder(
             future: Provider.of<FavoriteStories>(context, listen: false)
                 .fetchFavorites(),

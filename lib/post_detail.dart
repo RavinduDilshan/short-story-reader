@@ -9,9 +9,7 @@ import './posts_model.dart';
 import 'package:flutter/material.dart';
 
 class PostDetail extends StatefulWidget {
-  Post? post;
-  String storyId;
-  var isFavorite;
+  final String storyId;
 
   PostDetail(this.storyId, {super.key});
 
@@ -20,6 +18,8 @@ class PostDetail extends StatefulWidget {
 }
 
 class _PostDetailState extends State<PostDetail> {
+  Post? post;
+  var isFavorite;
   @override
   void initState() {
     _getStory(widget.storyId);
@@ -33,14 +33,14 @@ class _PostDetailState extends State<PostDetail> {
       return;
     }
     setState(() {
-      widget.post = res;
+      post = res;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    widget.isFavorite = Provider.of<FavoriteStories>(context)
-        .checkFavorite((widget.post?.id ?? -1).toString());
+    isFavorite = Provider.of<FavoriteStories>(context)
+        .checkFavorite((post?.id ?? -1).toString());
 
     const snackBar = SnackBar(
       duration: Duration(seconds: 2),
@@ -56,8 +56,8 @@ class _PostDetailState extends State<PostDetail> {
       width: double.infinity,
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("res/containerBG.png"), fit: BoxFit.cover)),
-      child: widget.post == null
+              image: AssetImage('res/containerBG.png'), fit: BoxFit.cover)),
+      child: post == null
           ? SizedBox(
               height: MediaQuery.of(context).size.height -
                   MediaQuery.of(context).size.height * 0.4,
@@ -68,7 +68,7 @@ class _PostDetailState extends State<PostDetail> {
               ),
             )
           : Text(
-              widget.post?.story ?? '',
+              post?.story ?? '',
               style: const TextStyle(
                   fontSize: 17.0,
                   height: 1.5,
@@ -82,13 +82,10 @@ class _PostDetailState extends State<PostDetail> {
         backgroundColor: Colors.white,
         onPressed: () async {
           //toggle favorite state
-          if (!widget.isFavorite) {
+          if (!isFavorite) {
             await Provider.of<FavoriteStories>(context, listen: false)
-                .addFavorite(
-                    widget.post?.title ?? '',
-                    (widget.post?.id ?? -1).toString(),
-                    widget.post?.author ?? '',
-                    widget.post?.image ?? '');
+                .addFavorite(post?.title ?? '', (post?.id ?? -1).toString(),
+                    post?.author ?? '', post?.image ?? '');
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
             }
@@ -96,11 +93,11 @@ class _PostDetailState extends State<PostDetail> {
             //remove from favorites
             await Provider.of<FavoriteStories>(context, listen: false)
                 .deleteFavorite(
-              (widget.post?.id ?? -1).toString(),
+              (post?.id ?? -1).toString(),
             );
           }
         },
-        child: widget.isFavorite
+        child: isFavorite
             ? Icon(
                 Icons.favorite,
                 color: Color(0xff5b5858),
@@ -132,12 +129,12 @@ class _PostDetailState extends State<PostDetail> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10)),
                   child: Text(
-                    widget.post?.title ?? '',
+                    post?.title ?? '',
                     style: TextStyle(
                         color: Color(0xff5b5858), fontWeight: FontWeight.bold),
                   ),
                 ),
-                background: widget.post == null
+                background: post == null
                     ? Center(
                         child: CircularProgressIndicator(
                           color: Color(0xff5b5858),
@@ -151,7 +148,7 @@ class _PostDetailState extends State<PostDetail> {
                                   fit: BoxFit.fitWidth,
                                   alignment: FractionalOffset.topCenter,
                                   image: MemoryImage(
-                                      base64Decode(widget.post?.image ?? '')))),
+                                      base64Decode(post?.image ?? '')))),
                         ),
                       ),
               ),
@@ -168,7 +165,7 @@ class _PostDetailState extends State<PostDetail> {
                   height: 50,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage("res/containerBG.png"),
+                          image: AssetImage('res/containerBG.png'),
                           fit: BoxFit.cover))),
             )
           ],

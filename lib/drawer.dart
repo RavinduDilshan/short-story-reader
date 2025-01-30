@@ -7,11 +7,11 @@ import 'contact.dart';
 
 class MyDrawer extends StatelessWidget {
   _launchURL() async {
-    const url = 'http://mawathegeethaya.blogspot.com/';
-    if (await canLaunch(url)) {
-      await launch(url);
+    final uri = Uri.parse('http://mawathegeethaya.blogspot.com/');
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $uri';
     }
   }
 
@@ -21,7 +21,7 @@ class MyDrawer extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("res/0.png"),
+            image: AssetImage('res/0.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -33,7 +33,7 @@ class MyDrawer extends StatelessWidget {
               child: SizedBox.shrink(),
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("res/drawer_img.png"),
+                      image: AssetImage('res/drawer_img.png'),
                       fit: BoxFit.cover)),
             ),
             ListTile(
