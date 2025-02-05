@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies
         run : flutter pub get
 
+      - name: Create .env file
+        run: |
+          echo "${{secrets.FIREBASE_KEYS}}" > .env
+            
+
       - name: Run Flutter Analyze
         run : flutter analyze
 
