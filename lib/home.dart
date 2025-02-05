@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "මදක් රැදීසිටින්න...",
+                        'මදක් රැදීසිටින්න...',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
