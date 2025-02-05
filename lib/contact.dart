@@ -100,7 +100,7 @@ class _contactState extends State<contact> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("res/0.png"), fit: BoxFit.cover)),
+                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: Center(
           child: ListView(
             shrinkWrap: true,

@@ -47,7 +47,7 @@ class Home extends StatelessWidget {
     return Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("res/0.png"), fit: BoxFit.cover)),
+                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: Scaffold(
           drawer: MyDrawer(),
           backgroundColor: Colors.transparent,
@@ -87,7 +87,7 @@ class Home extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        "මදක් රැදීසිටින්න...",
+                        'මදක් රැදීසිටින්න...',
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

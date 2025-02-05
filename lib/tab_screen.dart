@@ -13,12 +13,6 @@ class _TabScreenState extends State<TabScreen> {
 
   var _pageSelected = 0;
 
-  void _selectPage(int index) {
-    setState(() {
-      _pageSelected = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(

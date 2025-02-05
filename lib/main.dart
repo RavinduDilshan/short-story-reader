@@ -5,14 +5,18 @@ import 'package:provider/provider.dart';
 import 'package:sinhala_short_stories/firebase_options.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
 import 'package:sinhala_short_stories/tab_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
+  await dotenv.load(fileName: '.env');
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
