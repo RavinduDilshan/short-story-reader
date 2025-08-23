@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
 import 'package:sinhala_short_stories/services/firebase_service.dart';
 
-import './posts_model.dart';
+import 'models/story_model.dart';
 import 'package:flutter/material.dart';
 
 class PostDetail extends StatefulWidget {
@@ -18,7 +18,7 @@ class PostDetail extends StatefulWidget {
 }
 
 class _PostDetailState extends State<PostDetail> {
-  Post? post;
+  Story? post;
   var isFavorite;
   @override
   void initState() {

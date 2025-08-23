@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sinhala_short_stories/posts_model.dart';
+import 'package:sinhala_short_stories/models/story_model.dart';
 
 class FirebaseService {
   //get firebase collection instant
   CollectionReference stories =
       FirebaseFirestore.instance.collection('stories');
   //get all story list
-  Future<List<Post>?> getAllStoriesList() async {
+  Future<List<Story>?> getAllStoriesList() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await stories.get();
 
     // Get data from docs and convert map to List
     // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    List<Post>? allStoryList = querySnapshot.docs
-        .map((doc) => Post(
+    List<Story>? allStoryList = querySnapshot.docs
+        .map((doc) => Story(
             id: doc.reference.id,
             author: doc['author'],
             image: doc['image'],
@@ -25,9 +25,9 @@ class FirebaseService {
   }
 
   //get a single story by id
-  Future<Post?> getStoryById(String storyId) async {
+  Future<Story?> getStoryById(String storyId) async {
     DocumentSnapshot story = await stories.doc(storyId).get();
-    Post post = Post(
+    Story post = Story(
         id: storyId,
         author: story['author'],
         image: story['image'],

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sinhala_short_stories/drawer.dart';
 import 'package:sinhala_short_stories/services/firebase_service.dart';
-import './posts_model.dart';
+import 'models/story_model.dart';
 import './post_detail.dart';
 
 class Home extends StatelessWidget {
@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
       ),
     );
 
-    createTile(Post post) => Hero(
+    createTile(Story post) => Hero(
           tag: post.id,
           child: Material(
             elevation: 15.0,
@@ -55,9 +55,9 @@ class Home extends StatelessWidget {
           body: FutureBuilder(
             future: FirebaseService().getAllStoriesList(),
             builder:
-                (BuildContext context, AsyncSnapshot<List<Post>?> snapshot) {
+                (BuildContext context, AsyncSnapshot<List<Story>?> snapshot) {
               if (snapshot.hasData) {
-                List<Post> posts = snapshot.data ?? [];
+                List<Story> posts = snapshot.data ?? [];
 
                 return Scrollbar(
                   child: CustomScrollView(
