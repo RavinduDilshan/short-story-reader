@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sinhala_short_stories/helpers/enums.dart';
 import 'package:sinhala_short_stories/models/story_model.dart';
