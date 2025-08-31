@@ -6,7 +6,7 @@ import 'package:sinhala_short_stories/drawer.dart';
 import 'package:sinhala_short_stories/helpers/enums.dart';
 import 'package:sinhala_short_stories/providers/home_provider.dart';
 import 'models/story_model.dart';
-import './post_detail.dart';
+import 'story_details.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
             child: InkWell(
               onTap: () => Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(
-                  builder: (context) => PostDetail(post.id),
+                  builder: (context) => StoryDetails(post.id),
                 ),
               ),
               child: Image.memory(

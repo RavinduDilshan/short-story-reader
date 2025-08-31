@@ -8,16 +8,16 @@ import 'package:sinhala_short_stories/services/firebase_service.dart';
 import 'models/story_model.dart';
 import 'package:flutter/material.dart';
 
-class PostDetail extends StatefulWidget {
+class StoryDetails extends StatefulWidget {
   final String storyId;
 
-  PostDetail(this.storyId, {super.key});
+  StoryDetails(this.storyId, {super.key});
 
   @override
-  _PostDetailState createState() => _PostDetailState();
+  _StoryDetailsState createState() => _StoryDetailsState();
 }
 
-class _PostDetailState extends State<PostDetail> {
+class _StoryDetailsState extends State<StoryDetails> {
   Story? post;
   var isFavorite;
   @override
