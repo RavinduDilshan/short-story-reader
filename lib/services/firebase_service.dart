@@ -3,25 +3,19 @@ import 'package:sinhala_short_stories/models/story_model.dart';
 
 class FirebaseService {
   //get firebase collection instant
-  CollectionReference stories =
-      FirebaseFirestore.instance.collection('stories');
+  CollectionReference stories = FirebaseFirestore.instance.collection('stories');
   //get all story list
-  Future<List<Story>?> getAllStoriesList() async {
-    // Get docs from collection reference
-    QuerySnapshot querySnapshot = await stories.get();
-
-    // Get data from docs and convert map to List
-    // final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
-    List<Story>? allStoryList = querySnapshot.docs
-        .map((doc) => Story(
-            id: doc.reference.id,
+  Stream<List<Story>?> getAllStoriesList() {
+    return stories.snapshots().map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return Story(
+            id: doc.id,
             author: doc['author'],
             image: doc['image'],
             story: doc['story'],
-            title: doc['title']))
-        .toList();
-
-    return allStoryList;
+            title: doc['title']);
+      }).toList();
+    });
   }
 
   //get a single story by id

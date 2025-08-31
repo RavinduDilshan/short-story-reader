@@ -1,8 +1,32 @@
+import 'dart:async';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sinhala_short_stories/helpers/enums.dart';
 import 'package:sinhala_short_stories/models/story_model.dart';
+import 'package:sinhala_short_stories/services/firebase_service.dart';
 
-class HomeProvider extends ChangeNotifier{
-  final List<Story> _stories = [];
-  final LoadingState _loadingState = LoadingState.idle;
+class HomeProvider extends ChangeNotifier {
+  List<Story> stories = [];
+  LoadingState loadingState = LoadingState.idle;
+  StreamSubscription? _storiesSubscription;
+
+  fetchAllStories() async {
+    loadingState = LoadingState.loading;
+    notifyListeners();
+    _storiesSubscription = FirebaseService().getAllStoriesList().listen((result) {
+      stories = result ?? [];
+      loadingState = LoadingState.success;
+      notifyListeners();
+    }, onError: (error) {
+      loadingState = LoadingState.error;
+      notifyListeners();
+    });
+  }
+
+  @override
+  void dispose() {
+    _storiesSubscription?.cancel();
+    super.dispose();
+  }
 }

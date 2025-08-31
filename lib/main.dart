@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sinhala_short_stories/firebase_options.dart';
-import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
+import 'package:sinhala_short_stories/providers/home_provider.dart';
 import 'package:sinhala_short_stories/tab_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-        value: FavoriteStories(),
+    return ChangeNotifierProvider(
+      create: (ctx) => HomeProvider()..fetchAllStories(),
         child: MaterialApp(
           title: 'Book App',
           debugShowCheckedModeBanner: false,
