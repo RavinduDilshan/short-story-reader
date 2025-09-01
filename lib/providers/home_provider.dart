@@ -9,7 +9,7 @@ class HomeProvider extends ChangeNotifier {
   LoadingState loadingState = LoadingState.idle;
   StreamSubscription? _storiesSubscription;
 
-  fetchAllStories() async {
+  fetchAllStories() {
     loadingState = LoadingState.loading;
     notifyListeners();
     _storiesSubscription = FirebaseService().getAllStoriesList().listen((result) {

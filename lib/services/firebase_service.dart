@@ -21,12 +21,12 @@ class FirebaseService {
   //get a single story by id
   Future<Story?> getStoryById(String storyId) async {
     DocumentSnapshot story = await stories.doc(storyId).get();
-    Story post = Story(
+    Story storyObj = Story(
         id: storyId,
         author: story['author'],
         image: story['image'],
         story: story['story'],
         title: story['title']);
-    return post;
+    return storyObj;
   }
 }
