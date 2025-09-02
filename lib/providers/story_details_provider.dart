@@ -10,8 +10,13 @@ class StoryDetailsProvider extends ChangeNotifier {
   Future fetchStoryById(String id) async {
     loadingState = LoadingState.loading;
     notifyListeners();
-    story = await FirebaseService().getStoryById(id);
-    loadingState = LoadingState.success;
-    notifyListeners();
+    try {
+      story = await FirebaseService().getStoryById(id);
+      loadingState = LoadingState.success;
+      notifyListeners();
+    } catch (err) {
+      loadingState = LoadingState.error;
+      notifyListeners();
+    }
   }
 }

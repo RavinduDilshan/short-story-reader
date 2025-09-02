@@ -43,7 +43,8 @@ class _StoryDetailsState extends State<StoryDetails> {
           width: double.infinity,
           decoration: const BoxDecoration(
               image: DecorationImage(image: AssetImage('res/containerBG.png'), fit: BoxFit.cover)),
-          child: provider.loadingState == LoadingState.loading
+          child: provider.loadingState == LoadingState.loading ||
+                  provider.loadingState == LoadingState.idle
               ? SizedBox(
                   height:
                       MediaQuery.of(context).size.height - MediaQuery.of(context).size.height * 0.4,
@@ -53,14 +54,22 @@ class _StoryDetailsState extends State<StoryDetails> {
                     ),
                   ),
                 )
-              : Text(
-                  provider.story?.story ?? '',
-                  style: const TextStyle(
-                      fontSize: 17.0,
-                      height: 1.5,
-                      color: Color(0xff5b5858),
-                      fontWeight: FontWeight.bold),
-                ),
+              : provider.loadingState == LoadingState.error
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).size.height * 0.4,
+                      child: Center(
+                        child: Text('An error occured!'),
+                      ),
+                    )
+                  : Text(
+                      provider.story?.story ?? '',
+                      style: const TextStyle(
+                          fontSize: 17.0,
+                          height: 1.5,
+                          color: Color(0xff5b5858),
+                          fontWeight: FontWeight.bold),
+                    ),
         );
 
     return Scaffold(
@@ -96,71 +105,75 @@ class _StoryDetailsState extends State<StoryDetails> {
                 size: 50,
               ),
       ), */
-      body: SafeArea(
-        child: Consumer<StoryDetailsProvider>(
-          builder: (context, provider, child) {
-            return CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  leading: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Color(0xff5b5858),
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
+      body: Consumer<StoryDetailsProvider>(
+        builder: (context, provider, child) {
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Color(0xff5b5858),
                   ),
-                  pinned: true,
-                  floating: true,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                      child: provider.loadingState == LoadingState.loading
-                          ? SizedBox.shrink()
-                          : Text(
-                              provider.story?.title ?? '',
-                              style:
-                                  TextStyle(color: Color(0xff5b5858), fontWeight: FontWeight.bold),
-                            ),
-                    ),
-                    background: provider.loadingState == LoadingState.loading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: Color(0xff5b5858),
-                            ),
-                          )
-                        : AspectRatio(
-                            aspectRatio: 1 / 3,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.fitWidth,
-                                      alignment: FractionalOffset.topCenter,
-                                      image:
-                                          MemoryImage(base64Decode(provider.story?.image ?? '')))),
-                            ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                pinned: true,
+                floating: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    decoration:
+                        BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                    child: provider.loadingState == LoadingState.loading ||
+                            provider.loadingState == LoadingState.idle
+                        ? SizedBox.shrink()
+                        : provider.loadingState == LoadingState.error
+                            ? SizedBox.shrink()
+                            : Text(
+                                provider.story?.title ?? '',
+                                style: TextStyle(
+                                    color: Color(0xff5b5858), fontWeight: FontWeight.bold),
+                              ),
+                  ),
+                  background: provider.loadingState == LoadingState.loading ||
+                          provider.loadingState == LoadingState.idle
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xff5b5858),
                           ),
-                  ),
-                  expandedHeight: MediaQuery.of(context).size.height * 0.4,
+                        )
+                      : provider.loadingState == LoadingState.error
+                          ? Center(child: Text('An error occured!'))
+                          : AspectRatio(
+                              aspectRatio: 1 / 3,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.fitWidth,
+                                        alignment: FractionalOffset.topCenter,
+                                        image: MemoryImage(
+                                            base64Decode(provider.story?.image ?? '')))),
+                              ),
+                            ),
                 ),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => bottomContent(provider),
-                    childCount: 1,
-                  ),
+                expandedHeight: MediaQuery.of(context).size.height * 0.4,
+              ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => bottomContent(provider),
+                  childCount: 1,
                 ),
-                SliverToBoxAdapter(
-                  child: Container(
-                      height: 50,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage('res/containerBG.png'), fit: BoxFit.cover))),
-                )
-              ],
-            );
-          },
-        ),
+              ),
+              SliverToBoxAdapter(
+                child: Container(
+                    height: 50,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('res/containerBG.png'), fit: BoxFit.cover))),
+              )
+            ],
+          );
+        },
       ),
     );
   }
