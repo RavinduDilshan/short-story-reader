@@ -76,40 +76,43 @@ class _StoryDetailsState extends State<StoryDetails> {
     return Consumer<StoryDetailsProvider>(
       builder: (context, provider, child) {
         return Scaffold(
-         floatingActionButton:provider.loadingState == LoadingState.loading || provider.loadingState == LoadingState.idle || provider.loadingState == LoadingState.error ? null:  FloatingActionButton(
-          backgroundColor: Colors.white,
-          onPressed: () async {
-            //toggle favorite state
-            if (!isFavorite) {
-              await Provider.of<FavoriteStories>(context, listen: false).addFavorite(
-                  provider.story?.title ?? '',
-                  (provider.story?.id ?? -1).toString(),
-                  provider.story?.author ?? '',
-                  provider.story?.image ?? '');
-              if (mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-            } else {
-              //remove from favorites
-              await Provider.of<FavoriteStories>(context, listen: false).deleteFavorite(
-                (provider.story?.id ?? -1).toString(),
-              );
-            }
-          },
-          child: isFavorite
-              ? Icon(
-                  Icons.favorite,
-                  color: Color(0xff5b5858),
-                  size: 50,
-                )
-              : Icon(
-                  Icons.favorite_border_outlined,
-                  color: Color(0xff5b5858),
-                  size: 50,
-                ),
-        ),
-        body: 
-             CustomScrollView(
+            floatingActionButton: provider.loadingState == LoadingState.loading ||
+                    provider.loadingState == LoadingState.idle ||
+                    provider.loadingState == LoadingState.error
+                ? null
+                : FloatingActionButton(
+                    backgroundColor: Colors.white,
+                    onPressed: () async {
+                      //toggle favorite state
+                      if (!isFavorite) {
+                        await Provider.of<FavoriteStories>(context, listen: false).addFavorite(
+                            provider.story?.title ?? '',
+                            (provider.story?.id ?? -1).toString(),
+                            provider.story?.author ?? '',
+                            provider.story?.image ?? '');
+                        if (mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      } else {
+                        //remove from favorites
+                        await Provider.of<FavoriteStories>(context, listen: false).deleteFavorite(
+                          (provider.story?.id ?? -1).toString(),
+                        );
+                      }
+                    },
+                    child: isFavorite
+                        ? Icon(
+                            Icons.favorite,
+                            color: Color(0xff5b5858),
+                            size: 50,
+                          )
+                        : Icon(
+                            Icons.favorite_border_outlined,
+                            color: Color(0xff5b5858),
+                            size: 50,
+                          ),
+                  ),
+            body: CustomScrollView(
               slivers: [
                 SliverAppBar(
                   leading: IconButton(
@@ -124,8 +127,8 @@ class _StoryDetailsState extends State<StoryDetails> {
                   flexibleSpace: FlexibleSpaceBar(
                     title: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration:
-                          BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                      decoration: BoxDecoration(
+                          color: Colors.white, borderRadius: BorderRadius.circular(10)),
                       child: provider.loadingState == LoadingState.loading ||
                               provider.loadingState == LoadingState.idle
                           ? SizedBox.shrink()
@@ -174,11 +177,8 @@ class _StoryDetailsState extends State<StoryDetails> {
                               image: AssetImage('res/containerBG.png'), fit: BoxFit.cover))),
                 )
               ],
-            )
-         
-      );
+            ));
       },
-     
     );
   }
 }
