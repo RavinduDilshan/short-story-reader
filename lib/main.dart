@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sinhala_short_stories/app_router.dart';
 import 'package:sinhala_short_stories/firebase_options.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
 import 'package:sinhala_short_stories/providers/home_provider.dart';
@@ -33,13 +34,13 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (ctx) => FavoriteStories()),
           ChangeNotifierProvider(create: (ctx) => StoryDetailsProvider()),
         ],
-        child: MaterialApp(
+        child: MaterialApp.router(
+          routerConfig: AppRouter.router,
           title: 'Book App',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             platform: TargetPlatform.android,
           ),
-          home: TabScreen(),
         ));
   }
 }

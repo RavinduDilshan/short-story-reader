@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sinhala_short_stories/authors.dart';
-import 'package:sinhala_short_stories/tab_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'contact.dart';
@@ -32,9 +31,8 @@ class MyDrawer extends StatelessWidget {
             const DrawerHeader(
               child: SizedBox.shrink(),
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('res/drawer_img.png'),
-                      fit: BoxFit.cover)),
+                  image:
+                      DecorationImage(image: AssetImage('res/drawer_img.png'), fit: BoxFit.cover)),
             ),
             ListTile(
               leading: const Icon(
@@ -43,48 +41,34 @@ class MyDrawer extends StatelessWidget {
               ),
               title: const Text(
                 'ප්‍රධාන පිටුව',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xff5b5858),
-                    fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => TabScreen(),
-                  ),
-                );
+
+                context.go('/home');
               },
             ),
             ListTile(
               leading: const Icon(Icons.person, color: Color(0xff5b5858)),
               title: const Text(
                 'ලේඛක මඩුල්ල',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xff5b5858),
-                    fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => authors(),
-                  ),
-                );
+                context.go('/authors');
               },
             ),
             ListTile(
-              leading: const Icon(Icons.swap_vertical_circle,
-                  color: Color(0xff5b5858)),
+              leading: const Icon(Icons.swap_vertical_circle, color: Color(0xff5b5858)),
               title: const Text(
                 'වෙබ් පිටුව',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xff5b5858),
-                    fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: _launchURL,
             ),
@@ -92,10 +76,8 @@ class MyDrawer extends StatelessWidget {
               leading: const Icon(Icons.share, color: Color(0xff5b5858)),
               title: const Text(
                 'යාලුවන්ට කියන්න',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xff5b5858),
-                    fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {},
             ),
@@ -103,17 +85,11 @@ class MyDrawer extends StatelessWidget {
               leading: const Icon(Icons.message, color: Color(0xff5b5858)),
               title: const Text(
                 'අපට කියන්න',
-                style: TextStyle(
-                    fontSize: 17,
-                    color: Color(0xff5b5858),
-                    fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => contact(),
-                  ),
-                );
+                context.go('/contact');
               },
             ),
           ],
