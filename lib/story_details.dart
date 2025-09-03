@@ -44,8 +44,7 @@ class _StoryDetailsState extends State<StoryDetails> {
           width: double.infinity,
           decoration: const BoxDecoration(
               image: DecorationImage(image: AssetImage('res/containerBG.png'), fit: BoxFit.cover)),
-          child: provider.loadingState == LoadingState.loading ||
-                  provider.loadingState == LoadingState.idle
+          child: provider.loadingState == LoadingState.loading
               ? SizedBox(
                   height:
                       MediaQuery.of(context).size.height - MediaQuery.of(context).size.height * 0.4,
@@ -77,8 +76,8 @@ class _StoryDetailsState extends State<StoryDetails> {
       builder: (context, provider, child) {
         return Scaffold(
             floatingActionButton: provider.loadingState == LoadingState.loading ||
-                    provider.loadingState == LoadingState.idle ||
-                    provider.loadingState == LoadingState.error
+                    provider.loadingState == LoadingState.error ||
+                    provider.loadingState == LoadingState.idle
                 ? null
                 : FloatingActionButton(
                     backgroundColor: Colors.white,
@@ -129,8 +128,7 @@ class _StoryDetailsState extends State<StoryDetails> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(
                           color: Colors.white, borderRadius: BorderRadius.circular(10)),
-                      child: provider.loadingState == LoadingState.loading ||
-                              provider.loadingState == LoadingState.idle
+                      child: provider.loadingState == LoadingState.loading
                           ? SizedBox.shrink()
                           : provider.loadingState == LoadingState.error
                               ? SizedBox.shrink()
@@ -140,8 +138,7 @@ class _StoryDetailsState extends State<StoryDetails> {
                                       color: Color(0xff5b5858), fontWeight: FontWeight.bold),
                                 ),
                     ),
-                    background: provider.loadingState == LoadingState.loading ||
-                            provider.loadingState == LoadingState.idle
+                    background: provider.loadingState == LoadingState.loading
                         ? Center(
                             child: CircularProgressIndicator(
                               color: Color(0xff5b5858),
