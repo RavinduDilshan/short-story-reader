@@ -8,9 +8,15 @@ import 'package:sinhala_short_stories/providers/home_provider.dart';
 import 'models/story_model.dart';
 import 'story_details.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     //app bar
@@ -50,7 +56,8 @@ class Home extends StatelessWidget {
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: Scaffold(
-          drawer: MyDrawer(),
+          key: _key,
+          drawer: MyDrawer(key: _key),
           backgroundColor: Colors.transparent,
           appBar: appBar,
           body: Consumer<HomeProvider>(

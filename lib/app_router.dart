@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sinhala_short_stories/authors.dart';
 import 'package:sinhala_short_stories/contact.dart';
-import 'package:sinhala_short_stories/drawer.dart';
 import 'package:sinhala_short_stories/home.dart';
 import 'package:sinhala_short_stories/tab_screen.dart';
 
@@ -13,40 +12,31 @@ class AppRouter {
   static GoRouter get router => _router;
 
   static final GoRouter _router = GoRouter(
+    initialLocation: '/',
     routes: <RouteBase>[
-      ShellRoute(
-         builder: (context, state, child) {
-          return Scaffold(
-            drawer: MyDrawer(),
-            body: child, // 👈 swapped on navigation
-          );
+      GoRoute(
+        path: '/',
+        builder: (BuildContext context, GoRouterState state) {
+          return TabScreen();
         },
-        routes: <RouteBase>[
-           GoRoute(
-            path: '/',
-            builder: (BuildContext context, GoRouterState state) {
-              return TabScreen(key:UniqueKey());
-            },
-          ),
-          GoRoute(
-            path: '/home',
-            builder: (BuildContext context, GoRouterState state) {
-              return Home(key: UniqueKey());
-            },
-          ),
-          GoRoute(
-            path: '/authors',
-            builder: (BuildContext context, GoRouterState state) {
-              return Authors(key: UniqueKey());
-            },
-          ),
-          GoRoute(
-            path: '/contact',
-            builder: (BuildContext context, GoRouterState state) {
-              return Contact();
-            },
-          ),
-        ],
+      ),
+      GoRoute(
+        path: '/home',
+        builder: (BuildContext context, GoRouterState state) {
+          return Home();
+        },
+      ),
+      GoRoute(
+        path: '/authors',
+        builder: (BuildContext context, GoRouterState state) {
+          return Authors();
+        },
+      ),
+      GoRoute(
+        path: '/contact',
+        builder: (BuildContext context, GoRouterState state) {
+          return Contact();
+        },
       ),
     ],
   );

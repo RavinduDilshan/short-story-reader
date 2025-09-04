@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'contact.dart';
-
 class MyDrawer extends StatelessWidget {
+  const MyDrawer({super.key});
   _launchURL() async {
     final uri = Uri.parse('http://mawathegeethaya.blogspot.com/');
     if (await canLaunchUrl(uri)) {
@@ -48,7 +47,7 @@ class MyDrawer extends StatelessWidget {
                 // Update the state of the app
                 // ...
                 // Then close the drawer
-
+                Navigator.of(context).pop();
                 context.go('/home');
               },
             ),
@@ -60,6 +59,7 @@ class MyDrawer extends StatelessWidget {
                     TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
+                  Navigator.of(context).pop();
                 context.go('/authors');
               },
             ),
@@ -89,6 +89,7 @@ class MyDrawer extends StatelessWidget {
                     TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
+                  Navigator.of(context).pop();
                 context.go('/contact');
               },
             ),
