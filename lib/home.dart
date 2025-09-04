@@ -16,7 +16,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     //app bar
@@ -56,8 +55,7 @@ class _HomeState extends State<Home> {
         decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: Scaffold(
-          key: _key,
-          drawer: MyDrawer(key: _key),
+          drawer: MyDrawer(),
           backgroundColor: Colors.transparent,
           appBar: appBar,
           body: Consumer<HomeProvider>(

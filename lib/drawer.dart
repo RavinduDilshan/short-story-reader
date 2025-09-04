@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -24,7 +25,6 @@ class MyDrawer extends StatelessWidget {
           ),
         ),
         child: ListView(
-          // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
@@ -44,9 +44,6 @@ class MyDrawer extends StatelessWidget {
                     TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.of(context).pop();
                 context.go('/home');
               },
@@ -59,7 +56,7 @@ class MyDrawer extends StatelessWidget {
                     TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                  Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 context.go('/authors');
               },
             ),
@@ -79,7 +76,11 @@ class MyDrawer extends StatelessWidget {
                 style:
                     TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
-              onTap: () {},
+              onTap: () {
+                
+
+                Share.shareUri(Uri.parse('https://play.google.com/store/apps/details?id=com.ravindu.KetiKatha&hl=en'));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.message, color: Color(0xff5b5858)),
@@ -89,7 +90,7 @@ class MyDrawer extends StatelessWidget {
                     TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
               ),
               onTap: () {
-                  Navigator.of(context).pop();
+                Navigator.of(context).pop();
                 context.go('/contact');
               },
             ),

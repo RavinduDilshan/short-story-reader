@@ -7,7 +7,6 @@ import 'package:sinhala_short_stories/firebase_options.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
 import 'package:sinhala_short_stories/providers/home_provider.dart';
 import 'package:sinhala_short_stories/providers/story_details_provider.dart';
-import 'package:sinhala_short_stories/tab_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
