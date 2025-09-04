@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sinhala_short_stories/app_router.dart';
 import 'package:sinhala_short_stories/firebase_options.dart';
+import 'package:sinhala_short_stories/providers/config_provider.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
 import 'package:sinhala_short_stories/providers/home_provider.dart';
 import 'package:sinhala_short_stories/providers/story_details_provider.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (ctx) => ConfigProvider()..getPlaystoreUrl()),
           ChangeNotifierProvider(create: (ctx) => HomeProvider()..fetchAllStories()),
           ChangeNotifierProvider(create: (ctx) => FavoriteStories()),
           ChangeNotifierProvider(create: (ctx) => StoryDetailsProvider()),

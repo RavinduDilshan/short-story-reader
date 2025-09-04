@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sinhala_short_stories/providers/config_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -69,17 +71,22 @@ class MyDrawer extends StatelessWidget {
               ),
               onTap: _launchURL,
             ),
-            ListTile(
-              leading: const Icon(Icons.share, color: Color(0xff5b5858)),
-              title: const Text(
-                'යාලුවන්ට කියන්න',
-                style:
-                    TextStyle(fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
-              ),
-              onTap: () {
-                
-
-                Share.shareUri(Uri.parse('https://play.google.com/store/apps/details?id=com.ravindu.KetiKatha&hl=en'));
+            Consumer<ConfigProvider>(
+              builder: (context, configs, child) {
+                return ListTile(
+                  leading: const Icon(Icons.share, color: Color(0xff5b5858)),
+                  title: const Text(
+                    'යාලුවන්ට කියන්න',
+                    style: TextStyle(
+                        fontSize: 17, color: Color(0xff5b5858), fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    if (configs.playstoreUrl != null) {
+                      Share.shareUri(Uri.parse(configs.playstoreUrl!));
+                    }
+                  },
+                );
               },
             ),
             ListTile(

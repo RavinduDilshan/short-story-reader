@@ -4,6 +4,8 @@ import 'package:sinhala_short_stories/models/story_model.dart';
 class FirebaseService {
   //get firebase collection instant
   CollectionReference stories = FirebaseFirestore.instance.collection('stories');
+  CollectionReference configs = FirebaseFirestore.instance.collection('configs');
+
   //get all story list
   Stream<List<Story>?> getAllStoriesList() {
     return stories.snapshots().map((querySnapshot) {
@@ -28,5 +30,11 @@ class FirebaseService {
         story: story['story'],
         title: story['title']);
     return storyObj;
+  }
+
+  //get playstoreUrl(eg-playstore url for share)
+  Future<String?> getPlaystoreUrl() async {
+    DocumentSnapshot _configs = await configs.doc('config_data').get();
+    return _configs['playstoreurl'];
   }
 }
