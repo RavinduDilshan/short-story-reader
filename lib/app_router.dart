@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sinhala_short_stories/authors.dart';
 import 'package:sinhala_short_stories/contact.dart';
 import 'package:sinhala_short_stories/home.dart';
+import 'package:sinhala_short_stories/story_details.dart';
 import 'package:sinhala_short_stories/tab_screen.dart';
 
 class AppRouter {
@@ -38,6 +39,13 @@ class AppRouter {
           return Contact();
         },
       ),
+      GoRoute(
+        path: '/story/:id',
+        builder: (BuildContext context, GoRouterState state) {
+          final id = state.pathParameters['id'];
+          return StoryDetails(id as String);
+        },
+      )
     ],
   );
 }

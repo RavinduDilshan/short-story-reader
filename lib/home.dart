@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:sinhala_short_stories/drawer.dart';
 import 'package:sinhala_short_stories/helpers/enums.dart';
@@ -38,11 +39,7 @@ class _HomeState extends State<Home> {
             elevation: 15.0,
             shadowColor: Color(0xff5b5858).withOpacity(0.5),
             child: InkWell(
-              onTap: () => Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute(
-                  builder: (context) => StoryDetails(post.id),
-                ),
-              ),
+              onTap: () => context.push('/story/${post.id}'),
               child: Image.memory(
                 base64Decode(post.image),
                 fit: BoxFit.cover,
