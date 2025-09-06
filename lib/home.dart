@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
     final appBar = AppBar(
       iconTheme: IconThemeData(color: Color(0xff5b5858)),
       flexibleSpace: const Image(
-        image: AssetImage('res/containerBG.png'),
+        image: AssetImage("res/containerBG.png"),
         fit: BoxFit.cover,
       ),
       elevation: .5,
