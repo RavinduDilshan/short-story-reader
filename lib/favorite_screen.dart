@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sinhala_short_stories/post_detail.dart';
+import 'package:sinhala_short_stories/story_details.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -28,7 +28,7 @@ class FavoriteScreen extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("res/0.png"), fit: BoxFit.cover)),
+                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: FutureBuilder(
             future: Provider.of<FavoriteStories>(context, listen: false)
                 .fetchFavorites(),
@@ -55,7 +55,7 @@ class FavoriteScreen extends StatelessWidget {
                                     builder: (
                                       context,
                                     ) =>
-                                        PostDetail(
+                                        StoryDetails(
                                             story.getFavoriteStorie[i].id),
                                   ),
                                 );

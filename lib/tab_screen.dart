@@ -4,6 +4,7 @@ import 'package:sinhala_short_stories/favorite_screen.dart';
 import 'package:sinhala_short_stories/home.dart';
 
 class TabScreen extends StatefulWidget {
+    const TabScreen({super.key});
   @override
   _TabScreenState createState() => _TabScreenState();
 }
@@ -12,12 +13,6 @@ class _TabScreenState extends State<TabScreen> {
   final List<Widget> _pages = [Home(), FavoriteScreen()];
 
   var _pageSelected = 0;
-
-  void _selectPage(int index) {
-    setState(() {
-      _pageSelected = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

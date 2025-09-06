@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'drawer.dart';
 
-class contact extends StatefulWidget {
-  contact({super.key});
+class Contact extends StatefulWidget {
+  Contact({super.key});
 
   @override
-  State<contact> createState() => _contactState();
+  State<Contact> createState() => _ContactState();
 }
 
-class _contactState extends State<contact> {
+class _ContactState extends State<Contact> {
   final TextEditingController _nameController = TextEditingController();
 
   final TextEditingController _commentController = TextEditingController();
@@ -100,7 +100,7 @@ class _contactState extends State<contact> {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("res/0.png"), fit: BoxFit.cover)),
+                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: Center(
           child: ListView(
             shrinkWrap: true,

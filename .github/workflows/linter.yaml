@@ -1,0 +1,34 @@
+name: Linting Check
+
+
+on:
+  pull_request:
+    branches:
+      - main-development
+      - production
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.19.2
+      
+      - name: Install Dependencies
+        run : flutter pub get
+
+      - name: Create .env file
+        run: |
+          echo "${{secrets.FIREBASE_KEYS}}" > .env
+            
+
+      - name: Run Flutter Analyze
+        run : flutter analyze
+
+      

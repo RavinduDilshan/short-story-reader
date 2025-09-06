@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sinhala_short_stories/drawer.dart';
 
-class authors extends StatelessWidget {
-  const authors({super.key});
+class Authors extends StatelessWidget {
+  const Authors({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class authors extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("res/0.png"), fit: BoxFit.cover)),
+                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           ClipRRect(
@@ -46,7 +46,7 @@ class authors extends StatelessWidget {
                       right: 16,
                       left: 16,
                       child: Text(
-                        "ලහිරු සම්පත් කරුණාරත්න",
+                        'ලහිරු සම්පත් කරුණාරත්න',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -58,7 +58,7 @@ class authors extends StatelessWidget {
                       right: 16,
                       left: 16,
                       child: Text(
-                        "lahiru.s.karunarathna@gmail.com",
+                        'lahiru.s.karunarathna@gmail.com',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -88,7 +88,7 @@ class authors extends StatelessWidget {
                       right: 16,
                       left: 16,
                       child: Text(
-                        "ශම්මි මධුමාධව ඡයතිලක",
+                        'ශම්මි මධුමාධව ඡයතිලක',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -100,7 +100,7 @@ class authors extends StatelessWidget {
                       right: 16,
                       left: 16,
                       child: Text(
-                        "shammijayathilaka96@gmail.com",
+                        'shammijayathilaka96@gmail.com',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
