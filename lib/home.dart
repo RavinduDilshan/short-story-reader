@@ -1,14 +1,21 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:sinhala_short_stories/drawer.dart';
-import 'package:sinhala_short_stories/services/firebase_service.dart';
-import './posts_model.dart';
-import './post_detail.dart';
+import 'package:sinhala_short_stories/helpers/enums.dart';
+import 'package:sinhala_short_stories/providers/home_provider.dart';
+import 'models/story_model.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     //app bar
@@ -25,17 +32,13 @@ class Home extends StatelessWidget {
       ),
     );
 
-    createTile(Post post) => Hero(
+    createTile(Story post) => Hero(
           tag: post.id,
           child: Material(
             elevation: 15.0,
             shadowColor: Color(0xff5b5858).withOpacity(0.5),
             child: InkWell(
-              onTap: () => Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute(
-                  builder: (context) => PostDetail(post.id),
-                ),
-              ),
+              onTap: () => context.push('/story/${post.id}'),
               child: Image.memory(
                 base64Decode(post.image),
                 fit: BoxFit.cover,
@@ -46,56 +49,38 @@ class Home extends StatelessWidget {
 
     return Container(
         decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('res/0.png'), fit: BoxFit.cover)),
+            image: DecorationImage(image: AssetImage('res/0.png'), fit: BoxFit.cover)),
         child: Scaffold(
           drawer: MyDrawer(),
           backgroundColor: Colors.transparent,
           appBar: appBar,
-          body: FutureBuilder(
-            future: FirebaseService().getAllStoriesList(),
-            builder:
-                (BuildContext context, AsyncSnapshot<List<Post>?> snapshot) {
-              if (snapshot.hasData) {
-                List<Post> posts = snapshot.data ?? [];
-
-                return Scrollbar(
-                  child: CustomScrollView(
-                    primary: false,
-                    slivers: <Widget>[
-                      SliverPadding(
-                        padding: const EdgeInsets.all(16.0),
-                        sliver: SliverGrid.count(
-                          childAspectRatio: 2 / 3,
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 20.0,
-                          crossAxisSpacing: 20.0,
-                          children:
-                              posts.map((post) => createTile(post)).toList(),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              } else {
-                return const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(
-                        color: Color(0xff5b5858),
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        'මදක් රැදීසිටින්න...',
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff5b5858)),
-                      )
-                    ],
-                  ),
-                );
+          body: Consumer<HomeProvider>(
+            builder: (context, value, child) {
+              switch (value.loadingState) {
+                case LoadingState.loading:
+                  return const Center(child: CircularProgressIndicator(color: Colors.white));
+                case LoadingState.error:
+                  return const Center(child: Text('Something went wrong'));
+                case LoadingState.success:
+                  return Scrollbar(
+                    child: CustomScrollView(
+                      primary: false,
+                      slivers: <Widget>[
+                        SliverPadding(
+                          padding: const EdgeInsets.all(16.0),
+                          sliver: SliverGrid.count(
+                            childAspectRatio: 2 / 3,
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 20.0,
+                            crossAxisSpacing: 20.0,
+                            children: value.stories.map((post) => createTile(post)).toList(),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                default:
+                  return const SizedBox();
               }
             },
           ),

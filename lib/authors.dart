@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sinhala_short_stories/drawer.dart';
 
-class authors extends StatelessWidget {
-  const authors({super.key});
+class Authors extends StatelessWidget {
+  const Authors({super.key});
 
   @override
   Widget build(BuildContext context) {

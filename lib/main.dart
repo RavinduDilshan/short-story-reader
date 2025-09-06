@@ -2,9 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:sinhala_short_stories/app_router.dart';
 import 'package:sinhala_short_stories/firebase_options.dart';
+import 'package:sinhala_short_stories/providers/config_provider.dart';
 import 'package:sinhala_short_stories/providers/favorite_story_provider.dart';
-import 'package:sinhala_short_stories/tab_screen.dart';
+import 'package:sinhala_short_stories/providers/home_provider.dart';
+import 'package:sinhala_short_stories/providers/story_details_provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
@@ -25,15 +28,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-        value: FavoriteStories(),
-        child: MaterialApp(
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (ctx) => ConfigProvider()..getPlaystoreUrl()),
+          ChangeNotifierProvider(create: (ctx) => HomeProvider()..fetchAllStories()),
+          ChangeNotifierProvider(create: (ctx) => FavoriteStories()),
+          ChangeNotifierProvider(create: (ctx) => StoryDetailsProvider()),
+        ],
+        child: MaterialApp.router(
+          routerConfig: AppRouter.router,
           title: 'Book App',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             platform: TargetPlatform.android,
           ),
-          home: TabScreen(),
         ));
   }
 }
